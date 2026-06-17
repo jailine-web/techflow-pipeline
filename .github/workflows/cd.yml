@@ -1,65 +1,60 @@
-name : CD - Entrega Continua
-2
-3 on :
-4 push :
-5 tags :
-6 - ’v * ’
-7
-8 env :
-9 DOCKER_IMAGE : ${{ secrets . DOCKER_HUB_USERNAME }}/ meu - pipeline
-10
-11 jobs :
-12 release :
-13 name : Release Versionada
-14 runs - on : ubuntu - latest
-20
-21
-15
-16 steps :
-17 - uses : actions / checkout@v4
-18 with :
-19 fetch - depth : 0
-20
-21 - uses : docker / login - action@v3
-22 with :
-23 username : ${{ secrets . DOCKER_HUB_USERNAME }}
-24 password : ${{ secrets . DOCKER_HUB_TOKEN }}
-25
-26 - name : Extract version from tag
-27 id : meta
-28 run : |
-29 VERSION =${ GITHUB_REF # refs / tags / v }
-30 echo " version = $VERSION " >> $GITHUB_OUTPUT
-31
-32 - name : Build and push with version tag
-33 uses : docker / build - push - action@v5
-34 with :
-35 context : .
-36 push : true
-37 tags : |
-38 ${{ env . DOCKER_IMAGE }}: latest
-39 ${{ env . DOCKER_IMAGE }}: ${{ steps . meta . outputs . version }}
-40 ${{ env . DOCKER_IMAGE }}: ${{ github . sha }}
-41
-42 - name : Create GitHub Release
-43 uses : softprops / action - gh - release@v1
-44 with :
-45 tag_name : ${{ github . ref_name }}
-46 name : Release ${{ github . ref_name }}
-47 body : |
-48 Release ${{ github . ref_name }}
-49
-50 Docker Images :
-51 - ${{ env . DOCKER_IMAGE }}: ${{ steps . meta . outputs . version
-}}
-52 - ${{ env . DOCKER_IMAGE }}: latest
-53
-54 Commit SHA : ${{ github . sha }}
-55 draft : false
-56 prerelease : false
-57
-58 - name : Show release info
-59 run : |
-60 echo " Release ${{ steps . meta . outputs . version }} criada !"
-61 echo " Imagem : ${{ env . DOCKER_IMAGE }}: ${{ steps . meta . outputs
-. version }}"
+name: CD - Entrega Continua
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+env:
+  DOCKER_IMAGE: ${{ secrets.DOCKER_HUB_USERNAME }}/meu-pipeline
+
+jobs:
+  release:
+    name: Release Versionada
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_TOKEN }}
+
+      - name: Extract version from tag
+        id: meta
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Build and push with version tag
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.DOCKER_IMAGE }}:latest
+            ${{ env.DOCKER_IMAGE }}:${{ steps.meta.outputs.version }}
+            ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          body: |
+            Release ${{ github.ref_name }}
+
+            Docker Images:
+            - ${{ env.DOCKER_IMAGE }}:${{ steps.meta.outputs.version }}
+            - ${{ env.DOCKER_IMAGE }}:latest
+
+            Commit SHA: ${{ github.sha }}
+          draft: false
+          prerelease: false
+
+      - name: Show release info
+        run: |
+          echo "Release ${{ steps.meta.outputs.version }} criada!"
