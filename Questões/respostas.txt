@@ -1,0 +1,5 @@
+Lab 01.
+
+Questão 06: O job build depende do job test porque é necessário garantir que o código esteja funcionando corretamente antes de criar e publicar a imagem Docker. Dessa forma, os testes são executados primeiro e, caso algum deles falhe, o pipeline é interrompido e o build não é realizado.
+
+Essa dependência é importante porque evita que versões com erros sejam empacotadas e distribuídas. Assim, apenas códigos que passaram por todos os testes são transformados em imagens Docker e publicados no Docker Hub, aumentando a confiabilidade e a qualidade do processo de integração contínua.
