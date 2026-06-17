@@ -3,3 +3,13 @@ Lab 01.
 Questão 06: O job build depende do job test porque é necessário garantir que o código esteja funcionando corretamente antes de criar e publicar a imagem Docker. Dessa forma, os testes são executados primeiro e, caso algum deles falhe, o pipeline é interrompido e o build não é realizado.
 
 Essa dependência é importante porque evita que versões com erros sejam empacotadas e distribuídas. Assim, apenas códigos que passaram por todos os testes são transformados em imagens Docker e publicados no Docker Hub, aumentando a confiabilidade e a qualidade do processo de integração contínua.
+
+
+Lab 02.
+Questão 05: desse modo a produção do software é automatizado, sendo uma única versão compilada que é identificada por referencias de fácil entendimento e garantindo rastreabilidade e a implementação seja contínua e instantânea em ambientes diferentes. 
+
+Essa pratica acelera o ciclo de lançamento e é a base da entrega continua. nesse processo acontece a rastreabilidade continua vinculando um hash de commit do git diretamente na tag da imagem deixando desenvolvedores sabendo qual o código fonte gerou a imagem. 
+
+A promoção entre ambientes evita que se recompile códigos para diferentes ambientes
+
+E ferramentas CI/CD ajudam a automatizar esse processo.
