@@ -1,16 +1,8 @@
-class DatabaseConnection:
-    def __init__(self):
-        self.connected = False
+import pytest
+from src.database import DatabaseConnection
 
-    def connect(self):
-        self.connected = True
-        return "Connected to database"
+def test_query_without_connection():
+    db = DatabaseConnection()
 
-    def disconnect(self):
-        self.connected = False
-        return "Disconnected"
-
-    def query(self, sql: str) -> list:
-        if not self.connected:
-            raise ConnectionError("Not connected to database")
-        return [{"id": 1, "name": "test"}]
+    with pytest.raises(ConnectionError):
+        db.query("SELECT * FROM users")
