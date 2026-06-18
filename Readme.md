@@ -64,3 +64,26 @@ O pipeline executa automaticamente:
 ```bash
 pip install -r requirements.txt
 pytest tests/ --cov=src --cov-report=term-missing
+
+🐳 Docker
+
+Build:
+docker build -t meu-pipeline .
+
+Run:
+docker run --rm seu-usuario/meu-pipeline:latest
+
+📦 Versionamento
+
+git tag v1.0.0
+git push origin v1.0.0
+
+
+🔐 Secrets necessários
+
+DOCKER_HUB_USERNAME
+DOCKER_HUB_TOKEN
+
+
+
+
