@@ -41,6 +41,8 @@ tests/
 
 .github/workflows/
 └── ci-cd.yml
+|__ ci.yml
+|__ cd.yml
 
 
 ---
