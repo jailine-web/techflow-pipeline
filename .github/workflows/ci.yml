@@ -73,3 +73,4 @@ jobs:
           echo "Imagem Docker publicada com sucesso!"
           echo "${{ env.DOCKER_IMAGE }}:latest"
           echo "${{ env.DOCKER_IMAGE }}:${{ github.sha }}"
+          
