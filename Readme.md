@@ -1,6 +1,6 @@
-### Projeto TechFlow - disciplina DevOps!
+## Projeto TechFlow - disciplina DevOps!
 
-# 🚀 TechFlow Pipeline
+## 🚀 TechFlow Pipeline
 
 Pipeline completo de CI/CD com Python, Pytest, Docker e GitHub Actions.
 
